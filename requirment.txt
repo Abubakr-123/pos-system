@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+sqlalchemy
+flet
+python-dotenv
+python-jose
