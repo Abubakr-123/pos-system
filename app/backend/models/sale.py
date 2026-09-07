@@ -1,12 +1,12 @@
 from sqlalchemy import Integer , String , Float , ForeignKey
 from sqlalchemy.orm import Mapped , mapped_column ,relationship
-from app.backend.database.database import Base 
+from app.backend.models.base import BaseModel
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from app.backend.models.product import Product
 
-class Sale(Base):
+class Sale(BaseModel):
     __tablename__="sales"
     id:Mapped[int]=mapped_column(Integer(),primary_key=True)
     discuont:Mapped[int]=mapped_column(Integer())
@@ -15,7 +15,7 @@ class Sale(Base):
     saleitem:Mapped["SaleItem"]=relationship(back_populates="sale")
 
 
-class SaleItem(Base):
+class SaleItem(BaseModel):
     __tablename__="saleitems"
     id:Mapped[int]=mapped_column(Integer(),primary_key=True)
     quntity:Mapped[int]=mapped_column(Integer(),nullable=False)
