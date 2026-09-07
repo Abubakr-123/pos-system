@@ -8,7 +8,6 @@ if TYPE_CHECKING:
 
 class Sale(BaseModel):
     __tablename__="sales"
-    id:Mapped[int]=mapped_column(Integer(),primary_key=True)
     discuont:Mapped[int]=mapped_column(Integer())
     subtotal:Mapped[float]=mapped_column(Float())
     total:Mapped[float]=mapped_column(Float)
@@ -17,7 +16,6 @@ class Sale(BaseModel):
 
 class SaleItem(BaseModel):
     __tablename__="saleitems"
-    id:Mapped[int]=mapped_column(Integer(),primary_key=True)
     quntity:Mapped[int]=mapped_column(Integer(),nullable=False)
     unit_price:Mapped[float]=mapped_column(Float)
     sale:Mapped["Sale"]=relationship(back_populates="saleitem")

@@ -10,7 +10,6 @@ if TYPE_CHECKING:
 
 class Product(BaseModel):
     __tablename__="products"
-    id:Mapped[int]=mapped_column(Integer(),primary_key=True)
     name:Mapped[str]=mapped_column(String(20),nullable=False)
     price:Mapped[float]=mapped_column(Float(),nullable=False)
     category_id:Mapped[int]=mapped_column(Integer(),ForeignKey("categorys.id"))
