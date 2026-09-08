@@ -11,6 +11,7 @@ def get_sales(db:Session,data:SalesRespones):
     sale=db.query(Sale).all()
     return sale
 
+
 def create_sale(db:Session,data:SaleCreate):
     subtotal=0
     for item in data.items:
@@ -39,8 +40,10 @@ def create_sale(db:Session,data:SaleCreate):
 
         saleitem=SaleItem(
             quntity=item.quntity,
+            sale_id=sale.id,
             product_id=product.id,
-            sale_id=sale.id
+            unit_price=product.price
+
         )
 
         db.add(saleitem)
@@ -48,4 +51,23 @@ def create_sale(db:Session,data:SaleCreate):
     except exception:
         db.rollback() 
         raise
+
+def update_sale(sale_id:int,data:SalesRespones,db:Session):
+    sale=db.query(Sale).filter(Sale.id==sale_id).first()
+    if not sale:
+        raise HTTPException(status_code=404,detail="not found")
+    update_data=data.model_dump(exclude_unset=True)
+    for key , value  in  update_data.items:
+        setattr(sale , key , value)
+    db.commit()
+    db.refresh(sale)
+    return sale
+
+def delete_sale(sale_id:int, db:Session):
+    sale=db.query(Sale).filter(Sale.id==sale_id).first()
+    if not sale:
+        raise HTTPException(status_code=404,detail="not found")
+    db.delete(sale)
+    db.commit()
+
         
