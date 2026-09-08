@@ -1,7 +1,4 @@
-from abc import update_abstractmethods
-import datetime
-from re import I
-from unittest.mock import Base
+
 from pydantic import BaseModel , ConfigDict , Field
 
 class CategoryCreate(BaseModel):
@@ -11,6 +8,6 @@ class CategoryCreate(BaseModel):
 class CategoryRespones(BaseModel):
     id:int
     name:str
-    create_at:datetime
-    update_at:datetime
+    create_at:int
+    update_at:int
     model_config=ConfigDict(from_attributes=True)
