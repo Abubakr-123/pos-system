@@ -6,5 +6,6 @@ class ProductRespones(BaseModel):
     price:float
 
 class ProductCreate(BaseModel):
+    category_id : int
     name:str
     price:float

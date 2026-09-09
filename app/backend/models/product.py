@@ -15,3 +15,4 @@ class Product(BaseModel):
     category_id:Mapped[int]=mapped_column(Integer(),ForeignKey("categorys.id"))
     category:Mapped["Category"]=relationship(back_populates="product")
     saleitem:Mapped["SaleItem"]=relationship(back_populates="product")
+    
