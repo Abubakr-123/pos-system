@@ -6,17 +6,20 @@ from sqlalchemy.orm import Session
 from app.backend.core.security import hash_password ,verify_password
 from fastapi import HTTPException , status
 
+
+
 def get_user(data:UserRespones,db:Session):
     user=db.query(User).all()
     return user
 
 def create_user(data:UsersCreate,db:Session):
+    hashed_password=hash_password(data.hash_password)
     user=db.query(User).filter(User.username==data.username).first()
     if user:
         raise HTTPException(status_code=status.HTTP_302_FOUND,detail="user alredy exist")
     new_user=User(
-        usrename=data.username,
-        hash_password=hash_password()
+        username=data.username,
+        hash_password=hashed_password
     )
     db.add(new_user)
     db.commit()

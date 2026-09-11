@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.backend.router import sale_router , product_router , category_router
+from app.backend.router import sale_router , product_router , category_router , user_router
 from app.backend.database.database import Base ,engine
 
 
@@ -13,3 +13,4 @@ def home():
 app.include_router(product_router.router)
 app.include_router(sale_router.router)
 app.include_router(category_router.router)
+app.include_router(user_router.router)
