@@ -1,10 +1,18 @@
 from sqlalchemy import Integer , String , Float , ForeignKey
 from sqlalchemy.orm import Mapped , mapped_column ,relationship
 from app.backend.models.base import BaseModel
+from enum import Enum
+from sqlalchemy import Enum as SqlEnum
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from app.backend.models.product import Product
+
+
+class SaleStatus(str , Enum):
+    PENDING="pending"
+    COMPLTED="complted"
+    CANCELED="  canseled"
 
 class Sale(BaseModel):
     __tablename__="sales"
@@ -12,6 +20,7 @@ class Sale(BaseModel):
     subtotal:Mapped[float]=mapped_column(Float())
     total:Mapped[float]=mapped_column(Float)
     saleitem:Mapped["SaleItem"]=relationship(back_populates="sale")
+
 
 
 class SaleItem(BaseModel):
