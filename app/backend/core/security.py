@@ -2,7 +2,7 @@ from pwdlib import PasswordHash
 
 hashed_password=PasswordHash.recommended()
 
-def hash_passwoed(password):
+def hash_password(password):
     return hashed_password.hash(password)
 
 
