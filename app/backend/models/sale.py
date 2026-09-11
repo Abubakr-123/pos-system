@@ -20,6 +20,7 @@ class Sale(BaseModel):
     subtotal:Mapped[float]=mapped_column(Float())
     total:Mapped[float]=mapped_column(Float)
     saleitem:Mapped["SaleItem"]=relationship(back_populates="sale")
+    status:Mapped[SaleStatus]=mapped_column(SqlEnum(SaleStatus),default=SaleStatus.PENDING)
 
 
 
