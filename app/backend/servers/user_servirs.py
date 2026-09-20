@@ -1,12 +1,20 @@
-
-from io import SEEK_SET
 from app.backend.models.user import User , UserRole
-from app.backend.schema.user import UserRespones , UsersCreate
+from app.backend.schema.user import UserRespones , UsersCreate , UserLogin
 from sqlalchemy.orm import Session
 from app.backend.core.security import hash_password ,verify_password
 from fastapi import HTTPException , status
+from app.backend.core.config import currnet_user
 
+def login(db:Session,data:UserLogin):
+    # verify_pass=verify_password(data.password,)
+    user=db.query(User).filter(User.username==data.username).first()
+    if user:
+       # raise HTTPException(status_code=status.HTTP_302_FOUND,detail="invaled password")
+        if not verify_password(data.password,user.hash_password):
+          raise HTTPException(status_code=status.HTTP_302_FOUND,detail="invaled password")
+    return user
 
+    
 
 def get_user(data:UserRespones,db:Session):
     user=db.query(User).all()

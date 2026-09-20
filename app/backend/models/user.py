@@ -14,3 +14,5 @@ class User(BaseModel):
     username:Mapped[str]=mapped_column(String(50),nullable=False,unique=True)
     hash_password:Mapped[str]=mapped_column(String(50),nullable=False)
     role:Mapped[UserRole]=mapped_column(SqlEnum(UserRole),default=UserRole.CASHER)
+    def __repr__(self):
+        return f"<User{self.username}>"

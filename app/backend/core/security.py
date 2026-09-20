@@ -1,3 +1,16 @@
+# from pwdlib import PasswordHash
+
+# hashed_password=PasswordHash.recommended()
+
+# def hash_password(password):
+#     return hashed_password.hash(password)
+
+
+# def verify_password(password,hash_password):
+#     return hashed_password.verify(password, hash_password)
+############################################################
+
+#############################################################
 from pwdlib import PasswordHash
 
 hashed_password=PasswordHash.recommended()
@@ -5,9 +18,5 @@ hashed_password=PasswordHash.recommended()
 def hash_password(password):
     return hashed_password.hash(password)
 
-
-def verify_password(password,hash_password):
-    return hashed_password.verify(password, hash_password)
-
-
-
+def verfiy_password(passeord,hash_password):
+    return hashed_password.verify(passeord,hash_password)

@@ -1,3 +1,4 @@
+import token
 from pydantic import BaseModel , Field , ConfigDict
 
 class UsersCreate(BaseModel):
@@ -10,4 +11,11 @@ class UserRespones(BaseModel):
     username:str
     role:str
 
+class UserLogin(BaseModel):
+    username:str
+    password:str
+    model_config=ConfigDict(from_attributes=True)
 
+class Token(BaseModel):
+    tokrn_access:str
+    token_type:str

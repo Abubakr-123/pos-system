@@ -1,12 +1,17 @@
 
 from fastapi import APIRouter , Depends
 from sqlalchemy.orm import Session
-from app.backend.schema.user import UserRespones , UsersCreate
+from app.backend.schema.user import UserRespones , UsersCreate ,UserLogin
 from app.backend.database.database import get_db
 from app.backend.servers import user_servirs
 
 
 router=APIRouter(prefix="/User",tags=["users"])
+
+@router.post("/login",response_model=UserRespones)
+def login(data:UserLogin,db:Session=Depends(get_db)):
+    return user_servirs.login(data=data, db=db)
+
 
 @router.get("/",response_model=list[UserRespones])
 def get_user(data:UserRespones,db:Session=Depends(get_db)):
