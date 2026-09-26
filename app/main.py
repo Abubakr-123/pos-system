@@ -3,8 +3,10 @@ from app.backend.router import sale_router , product_router , category_router , 
 from app.backend.database.database import Base ,engine
 
 
+
 Base.metadata.create_all(bind=engine)
 app=FastAPI(title="pos test")
+
 
 @app.get("/")
 def home():
