@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from app.backend.models.caregory import Category
     from app.backend.models.sale import SaleItem
+    from app.backend.models.inventory import stok , StockMovement
 
 
 class Product(BaseModel):
@@ -15,4 +16,6 @@ class Product(BaseModel):
     category_id:Mapped[int]=mapped_column(Integer(),ForeignKey("categorys.id"))
     category:Mapped["Category"]=relationship(back_populates="product")
     saleitem:Mapped["SaleItem"]=relationship(back_populates="product")
+    stock:Mapped["stok"]=relationship(back_populates="product")
+    stockmovement:Mapped["StockMovement"]=relationship(back_populates="product")
     
