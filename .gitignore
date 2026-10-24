@@ -2,3 +2,4 @@
 /alembic
 /.env
 /alembic.init
+/pos.db
