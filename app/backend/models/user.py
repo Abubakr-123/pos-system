@@ -1,6 +1,6 @@
 from sqlalchemy import Integer , String , Float
 from sqlalchemy.orm import Mapped , mapped_column , relationship
-from app.backend.models.base import BaaeModel
+from app.backend.models.base import BaseModel
 from typing import TYPE_CHECKING
 from enum import Enum
 from sqlalchemy import Enum as SQLENUM
@@ -10,7 +10,7 @@ class UserRole(str , Enum):
     MANAGER="MANAGER"
 
 
-class User(BaaeModel):
+class User(BaseModel):
     __tablename__="users"
     name:Mapped[str]=mapped_column(String(50),nullable=False,index=True)
     email:Mapped[str]=mapped_column(String(50),nullable=False,unique=True)
