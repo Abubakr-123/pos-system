@@ -5,6 +5,8 @@ from app.backend.schema.sales import SaleCreate , SaleItemCreate ,SaleItemRespon
 from sqlalchemy.orm import Session
 from fastapi import HTTPException , status
 from typing import Optional
+from app.backend.servers.inventory import change_stock
+from app.backend.models.inventory import MovementType
 
 def get_sale(db:Session,data:SalesRespones):
     sale=db.query(Sale).all()
@@ -38,13 +40,19 @@ def create_sale(db:Session,data:SaleCreate):
             product=db.query(Product).filter(Product.id==item.product_id).first()
             if not product:
                 raise HTTPException(status_code=404,detail="not found")
-        sale_item=SaleItem(
-            quntity=item.quntity,
-            unit_price=product.price,
-            sale_id=sale.id,
-            product_id=product.id
-        )
-        db.add(sale_item)
+            sale_item=SaleItem(
+                quntity=item.quntity,
+                unit_price=product.price,
+                sale_id=sale.id,
+                product_id=product.id
+            )
+            db.add(sale_item)
+            change_stock(
+                db=db,
+                product_id=product.id,
+                quantity=item.quntity,
+                movement_type=MovementType.SALE,
+            )
         db.commit()
         db.refresh(sale)
         return sale

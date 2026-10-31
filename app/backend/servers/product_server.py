@@ -4,6 +4,7 @@ from app.backend.models.product import Product
 from sqlalchemy.orm import Session
 from fastapi import HTTPException , status
 from typing import Optional
+from app.backend.models.inventory import Stock
 
 
 def get_porduct(db:Session ,
@@ -19,11 +20,22 @@ def get_porduct(db:Session ,
 
 
 def create_product(db:Session, data:ProductCreate):
-    product=Product(**data.model_dump())
-    db.add(product)
-    db.commit()
-    db.refresh(product)
-    return product
+    try:
+        product=Product(**data.model_dump())
+        db.add(product)
+        db.flush()
+        inventory=Stock(
+            product_id=product.id,
+            quantity=0
+        )
+        db.add(inventory)
+        db.commit()
+        db.refresh(product)
+        return product
+    except:
+        db.rollback()
+        raise
+       
 
 def update_product(product_id:int,db:Session,data:ProductRespones):
     product=db.query(Product).filter(Product.id==product_id).first()
@@ -43,3 +55,4 @@ def delete_product(product_id:int , db:Session ):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="not found")
     db.delete(product)
     db.commit()
+    

@@ -11,6 +11,7 @@ class MovementType(str, Enum):
     SALE="SALE"
     CUSTOMER_RETURN="CUSTOMER_RETURN"
     PAY_RETURN="PAY_RETURN"
+    ADJUSTMENT="ADJUSTMENT"
     DAMGE="DANGE"
 
 class Stock(BaseModel):

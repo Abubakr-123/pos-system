@@ -1,8 +1,8 @@
 from pydantic import BaseModel , Field, ConfigDict
 
 
-class Stoks(BaseModel):
+class StoksPay(BaseModel):
     product_id:int
-    stok_quantity:int
-    movement_type:str
+    quantity:int=Field(gt=0)
+    
 

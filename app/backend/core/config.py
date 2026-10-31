@@ -6,7 +6,7 @@ from app.backend.models.user import User , UserRole
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt , JWTError
 from dotenv import load_dotenv
-from app.backend.scheam.user import TokenDate
+from app.backend.schema.user import Token 
 import os
 
 load_dotenv()
